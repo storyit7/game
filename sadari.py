@@ -114,7 +114,7 @@ def main():
         ladder = generate_ladder(n_people, n_rows)
         paths = [simulate_path(ladder, i) for i in range(n_people)]
         finished_markers = []
-        # 각 참가자의 경로를 순차적으로 애니메이션 (원 이동 속도: 0.05초 간격)
+        # 각 참가자의 경로를 순차적으로 애니메이션 (원 이동 속도: 기존 0.05초 대신 0.05/3초 간격)
         for i in range(n_people):
             current_path = paths[i]
             for pos in current_path:
@@ -123,7 +123,7 @@ def main():
                 fig = draw_ladder(ladder, n_people, n_rows, markers=markers)
                 ladder_placeholder.pyplot(fig)
                 plt.close('all')
-                time.sleep(0.05)
+                time.sleep(0.05/3)  # 지연 시간을 0.05초의 1/3로 줄임 (약 0.0167초)
             finished_markers.append((current_path[-1][0], current_path[-1][1], colors[i]))
         results = []
         for i, path in enumerate(paths):
